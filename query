@@ -1,0 +1,17 @@
+CREATE TABLE hasil AS SELECT nilai.id_siswa, nilai.nama, nilai.nrp,
+MAX(CASE WHEN nilai.id_mapel=1 THEN nilai.score ELSE 0
+END) AS "Fisika",
+MAX(CASE WHEN nilai.id_mapel=2 THEN nilai.score ELSE 0
+END) AS "Kimia",
+MAX(CASE WHEN nilai.id_mapel=3 THEN nilai.score ELSE 0
+END) AS "Matematika",
+MAX(CASE WHEN nilai.id_mapel=4 THEN nilai.score ELSE 0
+END) AS "Biologi",
+MAX(CASE WHEN nilai.id_mapel=5 THEN nilai.score ELSE 0
+END) AS "Agama",
+MAX(CASE WHEN nilai.id_mapel=6 THEN nilai.score ELSE 0
+END) AS "Bahasa Indonesia",
+MAX(CASE WHEN nilai.id_mapel=7 THEN nilai.score ELSE 0
+END) AS "Bahasa Inggris"
+FROM nilai 
+GROUP BY nilai.id_siswa;
