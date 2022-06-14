@@ -49,7 +49,7 @@ class Hasil_Resource(Resource):
     @marshal_with(hasil_fields)
     def get(self, siswa_id=None):
         if not siswa_id:
-            return Hasil.query[:25]
+            return Hasil.query.all()
 
         result = Hasil.query.filter_by(id_siswa=siswa_id).first()
 

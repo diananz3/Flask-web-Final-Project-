@@ -702,9 +702,9 @@ a.dt-button.active:not(.disabled) {
 .header {
   background: #ffffff;
   z-index: 990;
-  margin-left: 250px;
+  margin-left: 0px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: margin-left 300ms ease-in-out 0s;
+  transition: margin-left 0s ease-in-out 0s;
 }
 .logo {
   background: #343957;
