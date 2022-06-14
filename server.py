@@ -15,7 +15,7 @@ api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root@localhost/score'
 
 db = SQLAlchemy(app)
-cursor = db.cursor()
+#cursor = db.cursor()
 
 class Hasil(db.Model):
     __tablename__ = "hasil"
@@ -82,10 +82,9 @@ def nilai(id=None):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == "POST":
-        cursor.executemany('''select * from student where name = %s''', request.form['search'])
-        for r in cursor.fetchall():
-            print r[0],r[1],r[2]
-            return redirect(url_for('search'))
+        c=db.cursor()
+        c.executemany('''select * from score where nama = %s''', request.form['search'])
+        return render_template("nilai.html", records=c.fetchall())
     return render_template('search.html')
 
 if __name__ == "__main__":
