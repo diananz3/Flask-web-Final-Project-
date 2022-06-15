@@ -48,18 +48,23 @@ hasil_fields = {
 }
 
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/')
 def home():
-    if request.method == 'POST':
-        nama = request.form.get('nama')
-        # sql = text(f'Select * from hasil where nama = `{nama}`')
-        results = db.engine.execute("SELECT * from hasil WHERE nama LIKE %s", (nama))
-        # results = db.engine.execute(sql)
-        return render_template("nilai.html", info = results)
-    
-    else:
-        result = Hasil.query[:25]
-        return render_template("index.html", info = result)
+    result = Hasil.query[:25]
+    if not result:
+        abort(404, message=f"Tidak ditemukan")
+    return render_template("index.html", info = result)
+
+@app.route('/search') 
+def search():
+
+    # query = request.args['search']
+    query = request.args.get('search') 
+
+    result = Hasil.query.filter(Hasil.nama.ilike('%' + query + '%')).limit(30).all()
+    if not result:
+        abort(404, message=f"Tidak ditemukan")
+    return render_template('index.html', info = result)
 
 @app.route('/download', methods=['GET'])
 def download():
